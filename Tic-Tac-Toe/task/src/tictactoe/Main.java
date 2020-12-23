@@ -4,9 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    static int xs = 0;
-    static int os = 0;
-    static int es = 0;
 
     public static void main(String[] args) {
         // write your code here
@@ -170,9 +167,9 @@ public class Main {
         String result = " ";
         String x = "X";
         String o = "O";
-        int xWin = 0;
-        int oWin = 0;
-        es = 0;
+        int xWin = 0; // counter for Rows of X
+        int oWin = 0; // counter for Rows of O
+        int es = 0; // counter for empty cells
         //rows are checked
         for (int row = 0; row < grid.length; row++) {
             int xCount = 0;
@@ -236,11 +233,8 @@ public class Main {
             oWin++;
         }
 
-        //draw, not finished, impossible
-        if((xWin > 0 && oWin > 0) || (xs - os >= 2) || (os - xs) >= 2) {
-            result = "Impossible";
-            return result;
-        } else if(xWin == 0 && oWin == 0 && es == 0) {
+        //draw if no rows of X or O and no empty cells left
+        if(xWin == 0 && oWin == 0 && es == 0) {
             result = "Draw";
             return result;
         }
@@ -262,20 +256,15 @@ public class Main {
     }
     // method sets up grid array with string input
     public static void organizeGrid(String[][] grid, char[] splitInput, String input) {
-        for (int i = 0; i < input.length(); i++) {
+        for (int i = 0; i < input.length(); i++) { // get each char at index i and pass it on to array
             splitInput[i] = input.charAt(i);
         }
         int count= 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if(count < 9) {
-                    grid[i][j] = Character.toString(splitInput[count]);
+                    grid[i][j] = Character.toString(splitInput[count]); // cast char array items to String and pass on to grid
                     count++;
-                    if(grid[i][j].contains("X")) {
-                        xs++;
-                    }else if (grid[i][j].contains("O")) {
-                        os++;
-                    }
                 }
             }
         }
